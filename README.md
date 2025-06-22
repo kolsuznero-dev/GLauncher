@@ -1,2 +1,2 @@
 # GLauncher
-Güzel bir launcher.
+NodeJS ile yapılan bir launcher.

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';">
+    <title>GLauncher</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+        :root {
+            --bg-color: #2c2f33; --secondary-bg: #23272a; --primary-color: #7289da;
+            --text-color: #ffffff; --text-muted: #99aab5; --border-color: #4f545c;
+            --success-color: #43b581; --error-color: #f04747;
+        }
+        body {
+            font-family: 'Inter', sans-serif; background-color: var(--bg-color); color: var(--text-color);
+            margin: 0; padding: 20px; display: flex; flex-direction: column; height: 100vh; box-sizing: border-box;
+        }
+        .container { display: flex; flex-grow: 1; gap: 20px; overflow: hidden; }
+        .controls-panel {
+            background-color: var(--secondary-bg); padding: 20px; border-radius: 8px;
+            width: 300px; flex-shrink: 0; display: flex; flex-direction: column;
+        }
+        .console-panel {
+            background-color: var(--secondary-bg); padding: 20px; border-radius: 8px;
+            flex-grow: 1; display: flex; flex-direction: column; overflow: hidden;
+        }
+        h1 { margin-top: 0; text-align: center; color: var(--primary-color); }
+        .author { text-align: center; font-size: 14px; color: var(--text-muted); margin-bottom: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: 500; }
+        input, select {
+            width: 100%; padding: 10px; border: 1px solid var(--border-color);
+            background-color: var(--bg-color); color: var(--text-color); border-radius: 5px; box-sizing: border-box;
+        }
+        #launch-button {
+            width: 100%; padding: 12px; background-color: var(--primary-color); color: white;
+            border: none; border-radius: 5px; cursor: pointer; font-size: 16px;
+            font-weight: 700; transition: background-color 0.2s; margin-top: auto;
+        }
+        #launch-button:hover:not(:disabled) { background-color: #677bc4; }
+        #launch-button:disabled { background-color: var(--border-color); cursor: not-allowed; }
+        #console-output {
+            background-color: #1e1f22; flex-grow: 1; overflow-y: auto; white-space: pre-wrap;
+            word-wrap: break-word; padding: 10px; border-radius: 5px;
+            font-family: monospace; font-size: 12px; color: var(--text-muted);
+        }
+        #status-bar {
+            margin-top: 15px; padding: 10px; background-color: var(--bg-color);
+            border-radius: 5px; text-align: center; font-size: 14px; min-height: 20px; word-wrap: break-word;
+        }
+        .progress-container { margin-top: 10px; margin-bottom: 10px; }
+        .progress-bar-bg {
+            background-color: var(--bg-color); border-radius: 5px;
+            height: 10px; overflow: hidden; border: 1px solid var(--border-color);
+        }
+        .progress-bar {
+            background-color: var(--success-color); height: 100%;
+            width: 0%; transition: width 0.1s linear;
+        }
+        .progress-details {
+            font-size: 12px; color: var(--text-muted);
+            text-align: center; margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="controls-panel">
+            <h1>GLauncher</h1>
+            <p class="author">Yapımcı: Kolsuz Nero</p>
+    
+            <div class="form-group">
+                <label for="username">Kullanıcı Adı</label>
+                <input type="text" id="username" placeholder="Oyuncu Adı">
+            </div>
+    
+            <div class="form-group">
+                <label for="version-select">Minecraft Sürümü</label>
+                <select id="version-select">
+                    <option>Sürümler yükleniyor...</option>
+                </select>
+            </div>
+            
+            <div id="status-bar">Hazır</div>
+
+            <div id="progress-container" class="progress-container" style="display: none;">
+                <div class="progress-bar-bg">
+                    <div id="progress-bar" class="progress-bar"></div>
+                </div>
+                <div id="progress-details" class="progress-details"></div>
+            </div>
+
+            <button id="launch-button" disabled>Başlat</button>
+        </div>
+
+        <div class="console-panel">
+            <h2>Konsol Çıktısı</h2>
+            <div id="console-output">Başlatıcı logları ve oyun çıktıları burada görünecek...</div>
+        </div>
+    </div>
+
+    <script src="renderer.js"></script>
+</body>
+</html>
